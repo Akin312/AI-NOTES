@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Summary Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div class="app detail-page">
+
+    <!-- Header -->
+    <header class="detail-header">
+        <h1>
+            <i class="fas fa-file-alt"></i>
+            AI Özet Detayı
+        </h1>
+        <p>Orijinal notunuz ve AI tarafından oluşturulan özetin detaylı görünümü</p>
+    </header>
+
+    <!-- Orijinal Not -->
+    <div class="panel detail-card">
+        <div class="card-header">
+            <span class="card-icon"><i class="fas fa-sticky-note"></i></span>
+            <div>
+                <h2>Orijinal Not</h2>
+                <div class="content-badge original-badge">
+                    <i class="fas fa-pen"></i> Kullanıcı Girişi
+                </div>
+            </div>
+        </div>
+        <div class="card-content">
+            <p>{{ summary[1] }}</p>
+        </div>
+    </div>
+
+    <!-- Özet -->
+    <div class="panel detail-card highlight">
+        <div class="card-header">
+            <span class="card-icon"><i class="fas fa-brain"></i></span>
+            <div>
+                <h2>Özetlenmiş İçerik</h2>
+                <div class="content-badge summary-badge">
+                    <i class="fas fa-robot"></i> AI Tarafından Oluşturuldu
+                </div>
+            </div>
+        </div>
+
+        <div class="card-content">
+            <pre>{{ summary[2] }}</pre>
+
+            <!-- KOPYALAMA İÇİN GİZLİ TEXTAREA -->
+            <textarea id="summaryText" style="position:absolute; left:-9999px;">
+{{ summary[2] }}
+            </textarea>
+
+            <!-- KOPYALA BUTONU -->
+            <div class="copy-area">
+                <button type="button" class="secondary-btn" onclick="copySummary()">
+                    <i class="fas fa-copy"></i>
+                    Özeti Kopyala
+                </button>
+                <span id="copyStatus" class="copy-status">Kopyalandı ✓</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alt Bilgi -->
+    <div class="detail-footer">
+        <span class="date">
+            <i class="far fa-calendar-alt"></i>
+            {{ summary[3] }}
+        </span>
+
+
+        <div class="footer-actions">
+            <a href="/" class="secondary-btn">
+                <i class="fas fa-arrow-left"></i>
+                Ana Sayfaya Geri Dön
+            </a>
+
+            <!-- 📥 İNDİR BUTONU -->
+    <a href="/summary/{{ summary['id'] }}/download" class="secondary-btn">
+        ⬇ İndir (TXT)
+    </a>
+
+    <a href="/summary/{{ summary['id'] }}/download_pdf" class="secondary-btn">
+    📄 İndir (PDF)
+</a>
+
+            <form method="post" action="/summary/{{ summary['id'] }}/delete"
+      onsubmit="return confirm('Bu özeti silmek istediğine emin misin?')">
+    <button class="btn-danger" type="submit">
+        <span class="icon">🗑️</span>
+        Bu özeti sil
+    </button>
+</form>
+
+
+
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- KOPYALAMA SCRIPT -->
+<script>
+function copySummary() {
+    const textarea = document.getElementById("summaryText");
+    textarea.select();
+    textarea.setSelectionRange(0, 99999);
+
+    document.execCommand("copy");
+
+    const status = document.getElementById("copyStatus");
+    status.classList.add("show");
+
+    setTimeout(() => {
+        status.classList.remove("show");
+    }, 1500);
+}
+</script>
+
+</body>
+</html>

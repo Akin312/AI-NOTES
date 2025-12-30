@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kayıt Ol</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auth-body">
+
+<div class="auth-card">
+    <h1>🚀 Aramıza Katıl</h1>
+    <p class="auth-desc">Yeni hesap oluştur</p>
+
+    <form method="post">
+        <input type="text" name="username" placeholder="Kullanıcı adı" required>
+        <input type="password" name="password" placeholder="Şifre" required>
+
+        <button type="submit" class="auth-btn">Kayıt Ol</button>
+    </form>
+
+    <div class="auth-footer">
+        Zaten hesabın var mı?
+        <a href="/login">Giriş Yap</a>
+    </div>
+</div>
+
+</body>
+</html>

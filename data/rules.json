@@ -1,0 +1,179 @@
+
+{
+  "chat": {
+    "greetings": ["merhaba", "selam", "hey", "hi", "hello"],
+    "how_are_you": ["nasılsın", "naber", "ne haber"],
+    "help": ["yardım", "yardım eder misin", "ne yapıyorsun", "ne işe yarıyorsun"],
+    "responses": {
+      "greetings": [
+        "Merhaba 👋 Nasılsın?",
+        "Selam! Nasıl Yardımcı olabilirim 😊",
+        "Merhaba, ne hakkında konuşmak istersin?"
+      ],
+      "how_are_you": [
+        "İyiyim, teşekkür ederim 😄 Sen nasılsın?",
+        "Gayet iyiyim, öğrenmeye hazırım 😎"
+      ],
+      "help": [
+        "Notlarını düzenleyebilirim veya konuları açıklayabilirim.",
+        "Ağ, Python ve web konularında yardımcı olabilirim."
+      ]
+    }
+  },
+  
+  "tcp": {
+    "keywords": ["tcp", "protokol", "bağlantı", "internet", "ağ", "güvenli"],
+    "title": "TCP (Transmission Control Protocol)",
+    "summary": "Bağlantı tabanlı ve güvenilir veri iletim protokolüdür.",
+    "details": [
+      "Veri kaybını önler",
+      "Paketleri sıralı şekilde iletir",
+      "HTTP, HTTPS ve FTP gibi protokoller TCP kullanır"
+    ],
+    "category": "network"
+  },
+
+  "udp": {
+    "keywords": ["udp", "hızlı", "oyun", "bağlantısız", "video", "stream"],
+    "title": "UDP (User Datagram Protocol)",
+    "summary": "Bağlantısız ve hızlı veri iletim protokolüdür.",
+    "details": [
+      "Hızlıdır ancak veri kaybı olabilir",
+      "Canlı yayın ve online oyunlarda kullanılır",
+      "Paket sırası garanti edilmez"
+    ],
+    "category": "network"
+  },
+
+  "dhcp": {
+    "keywords": ["dhcp", "dchp", "ip", "adres", "otomatik", "ağ"],
+    "title": "DHCP (Dynamic Host Configuration Protocol)",
+    "summary": "Ağdaki cihazlara otomatik IP yapılandırması sağlar.",
+    "details": [
+      "IP adresi otomatik atanır",
+      "Ağ maskesi ve ağ geçidi bilgisi dağıtılır",
+      "Manuel IP ayarını ortadan kaldırır"
+    ],
+    "category": "network"
+  },
+
+  "dns": {
+    "keywords": ["dns", "alan adı", "domain", "ip çözümleme"],
+    "title": "DNS (Domain Name System)",
+    "summary": "Alan adlarını IP adreslerine çeviren sistemdir.",
+    "details": [
+      "İnternetin telefon rehberi olarak çalışır",
+      "Alan adı → IP adresi dönüşümü yapar",
+      "Web sitelerinin erişilebilir olmasını sağlar"
+    ],
+    "category": "network"
+  },
+
+  "http": {
+    "keywords": ["http", "web", "istek", "cevap"],
+    "title": "HTTP (HyperText Transfer Protocol)",
+    "summary": "Web istemcileri ile sunucular arasında veri iletir.",
+    "details": [
+      "İstemci–sunucu mantığıyla çalışır",
+      "Durumsuz (stateless) bir protokoldür",
+      "Tarayıcılar HTTP ile istek gönderir"
+    ],
+    "category": "network"
+  },
+
+  "python": {
+    "keywords": ["python", "kod", "script", "programlama"],
+    "title": "Python Programlama Dili",
+    "summary": "Okunabilir ve öğrenmesi kolay bir programlama dilidir.",
+    "details": [
+      "Yüksek seviyeli bir dildir",
+      "Web, yapay zeka ve otomasyonda kullanılır",
+      "Geniş kütüphane desteğine sahiptir"
+    ],
+    "category": "python"
+  },
+
+  "function": {
+    "keywords": ["fonksiyon", "function", "def", "metot"],
+    "title": "Python Fonksiyonları",
+    "summary": "Tekrar eden kodları düzenlemek için kullanılır.",
+    "details": [
+      "def anahtar kelimesi ile tanımlanır",
+      "Parametre alabilir veya almayabilir",
+      "return ile değer döndürebilir"
+    ],
+    "category": "python"
+  },
+
+  "class": {
+    "keywords": ["class", "sınıf", "oop", "nesne"],
+    "title": "Class (Sınıf Yapısı)",
+    "summary": "Nesne tabanlı programlamanın temel yapı taşıdır.",
+    "details": [
+      "Özellik ve metotları bir arada tutar",
+      "Nesneler class üzerinden oluşturulur",
+      "Kodun düzenli olmasını sağlar"
+    ],
+    "category": "python"
+  },
+
+  "list": {
+    "keywords": ["liste", "list", "array", "dizi"],
+    "title": "List Veri Yapısı",
+    "summary": "Birden fazla veriyi sıralı şekilde tutar.",
+    "details": [
+      "Köşeli parantez ile tanımlanır",
+      "İndeksleme yapılabilir",
+      "Değiştirilebilir (mutable)"
+    ],
+    "category": "python"
+  },
+
+  "dict": {
+    "keywords": ["dict", "dictionary", "sözlük", "key", "value"],
+    "title": "Dictionary (Sözlük)",
+    "summary": "Anahtar-değer mantığıyla çalışan veri yapısıdır.",
+    "details": [
+      "Key-value yapısı vardır",
+      "Hızlı erişim sağlar",
+      "Veriler anahtarla çağrılır"
+    ],
+    "category": "python"
+  },
+
+  "html": {
+    "keywords": ["html", "etiket", "web", "sayfa"],
+    "title": "HTML",
+    "summary": "Web sayfalarının iskeletini oluşturan dildir.",
+    "details": [
+      "Etiket mantığıyla çalışır",
+      "Tarayıcılar tarafından yorumlanır",
+      "CSS ve JS ile birlikte kullanılır"
+    ],
+    "category": "web"
+  },
+
+  "css": {
+    "keywords": ["css", "stil", "tasarım", "renk"],
+    "title": "CSS",
+    "summary": "Web sayfalarının görünümünü düzenler.",
+    "details": [
+      "Renk, font ve düzen ayarları yapılır",
+      "Responsive tasarımlar oluşturulur",
+      "HTML ile birlikte çalışır"
+    ],
+    "category": "web"
+  },
+
+  "javascript": {
+    "keywords": ["javascript", "js", "etkileşim", "script"],
+    "title": "JavaScript",
+    "summary": "Web sayfalarına dinamik davranış kazandırır.",
+    "details": [
+      "Kullanıcı etkileşimlerini yönetir",
+      "DOM manipülasyonu yapar",
+      "Frontend ve backend'de kullanılabilir"
+    ],
+    "category": "web"
+  }
+}

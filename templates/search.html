@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>🔎 Arama Sonuçları</h2>
+
+<p>
+Aranan kelime: <strong>{{ query }}</strong>
+</p>
+
+{% if results %}
+
+<ul>
+    {% for s in results %}
+        <li>
+            <a href="/summary/{{ s['id'] }}">
+                {{ s['created_at'] }} — {{ s['summary'][:70] }}...
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% else %}
+
+<p>❌ Sonuç bulunamadı.</p>
+
+{% endif %}
+
+<a href="/">⬅ Geri dön</a>
+
+{% endblock %}

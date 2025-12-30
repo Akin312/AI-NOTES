@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Giriş Yap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auth-body">
+
+<div class="auth-card">
+    <h1>👋 Tekrar Hoş Geldin</h1>
+    <p class="auth-desc">Hesabına giriş yap</p>
+
+    <form method="post">
+        <input type="text" name="username" placeholder="Kullanıcı adı" required>
+        <input type="password" name="password" placeholder="Şifre" required>
+
+        <button type="submit" class="auth-btn">Giriş Yap</button>
+    </form>
+
+    <div class="auth-footer">
+        Hesabın yok mu?
+        <a href="/register">Kayıt Ol</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,291 @@
+{% extends "layout.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI NOTES</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="app">
+    <header>
+        <h1>✨ Akıllı Not Düzenleyici</h1>
+        <p>AI destekli, modern not düzenleme deneyimi</p>
+        <div class="auth-area">
+            {% if session.get("user_id") %}
+                <span class="username">
+                    <i class="fas fa-user"></i>
+                    {{ session.get("username") }}
+                </span>
+                <a href="/logout" class="secondary-btn small-btn">Çıkış</a>
+            {% else %}
+                <a href="/login" class="secondary-btn small-btn">Giriş Yap</a>
+                <a href="/register" class="primary-btn small-btn">Kayıt Ol</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="panel input-panel">
+        {% if sonuc.chat %}
+        <div class="panel welcome-panel">
+            <h2>💬</h2>
+            <p>{{ sonuc.chat }}</p>
+        </div>
+        {% endif %}
+
+        {% if not sonuc %}
+        <div class="panel welcome-panel">
+            <h2>Merhaba 👋</h2>
+            <p>
+                Notunu Aşağıya yaz, <strong>Düzenle ve Analiz Et</strong> butonuna bas.  
+                Ben senin için konuları algılayıp düzenli bir şekilde sunayım.
+            </p>
+        </div>
+        {% endif %}
+
+        <form method="get" action="/search">
+    <input 
+        type="text" 
+        name="q" 
+        placeholder="🔎 Geçmiş notlarda ara..."
+        style="width: 100%; padding: 10px; margin-bottom: 12px;"
+    >
+</form>
+
+<div class="danger-zone">
+
+    <div>
+        <strong>Dikkat!</strong> Bu butona bastığında tüm geçmiş özetlerin silinir. Geri alamazsın.
+    </div>
+
+    <form method="post" action="/summary/delete_all"
+          onsubmit="return confirm('Tüm özetler kalıcı olarak silinecek. Emin misin?')">
+
+        <button class="btn-danger" type="submit">
+            <span class="icon">🗑️</span>
+            Tüm geçmişi sil
+        </button>
+
+    </form>
+
+</div>
+
+
+
+
+{% if summaries %}
+<div class="panel result-panel">
+    <h2>📚 Geçmiş Özetler</h2>
+    <form method="get" class="search-bar">
+        <input 
+            type="text" 
+            name="q"
+            placeholder="🔍 Geçmiş notlarda ara..."
+            value="{{ query }}"
+        >
+    </form>
+    
+    <ul class="result-list">
+        {% for s in summaries %}
+        <li class="result-item">
+            <a href="/summary/{{ s['id'] }}" class="item-text">
+                <strong>{{ s['created_at'][:16] }}</strong> —
+                {{ s['note'][:60] }}...
+            </a>
+        </li>
+        {% endfor %}
+    </ul>    
+</div>
+{% endif %} 
+
+<div style="margin: 10px 0;">
+    <label>Özet türü:</label>
+
+    <select name="mode" style="padding: 8px; border-radius: 10px;">
+        <option value="kisa">Kısa</option>
+        <option value="normal" selected>Normal</option>
+        <option value="detayli">Detaylı</option>
+    </select>
+</div>
+
+
+
+        <form method="post" id="noteForm">
+            <div class="textarea-wrapper">
+                <textarea 
+                    name="note" 
+                    id="noteInput"
+                    placeholder="Notunuzu buraya yazın... AI sizin için düzenleyecek 🚀" 
+                    required
+                    maxlength="5000"></textarea>
+                <div class="char-count">
+                    <span id="charCounter">0</span> / 5000 karakter
+                </div>
+            </div>
+            <div class="button-group">
+                <button type="submit" class="primary-btn">
+                    <span class="btn-icon">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </span>                    
+                    <span class="btn-text">Düzenle ve Analiz Et</span>
+                </button>
+                <button type="button" class="secondary-btn" id="clearBtn">
+                    <span class="btn-icon">
+                        <i class="fa-regular fa-trash-can"></i>
+                    </span>                    
+                    <span class="btn-text">Temizle</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    
+
+    {% if sonuc %}
+<div class="panel result-panel">
+    <h2>📝 Özet</h2>
+    <p>{{ sonuc }}</p>
+</div>
+{% endif %}
+
+
+    {% if sonuc and sonuc.cards %}
+    <div class="panel result-panel">
+
+        <div class="result-header">
+            <div class="result-title-wrapper">
+                <span class="result-icon">
+                    <i class="fa-regular fa-file-lines"></i>
+                </span>
+                <h2>Algılanan Konular</h2>
+            </div>
+
+            <div class="badges">
+                <span class="confidence-badge">
+                    <span class="badge-label">Güven:</span>
+                    <span class="badge-value">%{{ sonuc.guven }}</span>
+                </span>
+                <span class="count-badge">
+                    <span class="badge-value">{{ sonuc.cards|length }}</span>
+                    <span class="badge-label">konu</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="result-content">
+            {% for card in sonuc.cards %}
+            <div class="topic-card">
+                <h3 class="topic-title">{{ card.title }}</h3>
+                <p class="topic-summary">{{ card.summary }}</p>
+                <ul class="result-list">
+                    {% for d in card.details %}
+                    <li class="result-item">
+                        <span class="item-bullet">▸</span>
+                        <span class="item-text">{{ d }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- GÜZELLEŞTİRİLMİŞ AKTARIM BUTONLARI -->
+        <div class="export-section">
+            <h3 class="export-title">
+                <i class="fa-solid fa-share-from-square"></i>
+                Aktarım Seçenekleri
+            </h3>
+            <p class="export-subtitle">Düzenlenmiş notlarınızı kaydedin veya paylaşın</p>
+            
+            <div class="export-grid">
+                <!-- KOPYALA BUTONU -->
+                <button type="button" class="export-card" onclick="copyToClipboard()" id="copyBtn">
+                    <div class="export-icon copy-icon">
+                        <i class="fa-solid fa-copy"></i>
+                    </div>
+                    <div class="export-content">
+                        <h4>Panoya Kopyala</h4>
+                        <p>Tüm içeriği kopyala</p>
+                    </div>
+                </button>
+                
+                <!-- TXT İNDİR BUTONU -->
+                <button type="button" class="export-card" onclick="downloadAsText()">
+                    <div class="export-icon download-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <div class="export-content">
+                        <h4>TXT İndir</h4>
+                        <p>Metin dosyası olarak</p>
+                    </div>
+                </button>
+                
+                <!-- PDF İNDİR BUTONU -->
+                <button type="button" class="export-card" onclick="downloadAsPDF()" id="pdfBtn">
+                    <div class="export-icon pdf-icon">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </div>
+                    <div class="export-content">
+                        <h4>PDF İndir</h4>
+                        <p>Profesyonel format</p>
+                    </div>
+                </button>
+                
+                <!-- PAYLAŞ BUTONU -->
+                <button type="button" class="export-card" onclick="shareResult()">
+                    <div class="export-icon share-icon">
+                        <i class="fa-solid fa-share-alt"></i>
+                    </div>
+                    <div class="export-content">
+                        <h4>Paylaş</h4>
+                        <p>Diğer uygulamalarla</p>
+                    </div>
+                </button>
+            </div>
+            <!-- quick-actions kısmını güncelleyin -->
+        <div class="quick-actions">
+            <button class="quick-btn" onclick="shareOnWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i>
+                WhatsApp
+            </button>
+            <button class="quick-btn" onclick="shareOnTwitter()">
+                <i class="fa-brands fa-twitter"></i>
+                Twitter
+            </button>
+            <button class="quick-btn" onclick="shareOnTelegram()">
+                <i class="fa-brands fa-telegram"></i>
+                Telegram
+            </button>
+        </div>
+        </div>
+        <!-- AKTARIM BÖLÜMÜ SONU -->
+
+    </div>
+    {% endif %}
+
+</div>
+
+<!-- BİLDİRİM -->
+<div id="notification" class="notification">
+    <div class="notification-icon">
+        <i class="fa-solid fa-check-circle"></i>
+    </div>
+    <div class="notification-content">
+        <h4>Başarılı!</h4>
+        <p>İşlem tamamlandı.</p>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+    
+</script>
+</body>
+</html>
+{% endblock %}
