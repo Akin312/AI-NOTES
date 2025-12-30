@@ -1,173 +1,180 @@
-🧠 AI Notes — Akıllı Not Düzenleme & PDF / TXT Çıktı Uygulaması
+🧠 AI Notes — Smart Note Editing & PDF / TXT Export App
 
-Yazdığın notları yapay zeka ile düzenler, sadeleştirir, özetler — kaydeder — indirmeni sağlar.
+Edits, simplifies, summarizes, saves — and lets you download your notes using AI.
 
-✔ Öğrenciler için
-✔ Ders notu düzenleme
-✔ Günlük — proje — özet çıkarma
+✔ For students
+✔ Clean up lecture notes
+✔ Daily — project — summary writing
 
-Flask + SQLite + OpenRouter (LLM) tabanlıdır.
+Built with Flask + SQLite + OpenRouter (LLM).
 
-🚀 İçindekiler
+🚀 Table of Contents
 
-⭐ Özellikler
+⭐ Features
 
-⚙ Kurulum
+⚙ Setup
 
-🔑 API Anahtarı Ayarlama
+🔑 Setting the API Key
 
-▶️ Uygulamayı Çalıştırma
+▶️ Running the App
 
-✨ Kullanım
+✨ Usage
 
-📄 PDF / TXT İndirme
+📄 PDF / TXT Download
 
-🗂 Veritabanı Yapısı
+🗂 Database Structure
 
-🛠 Sorun Giderme
+🛠 Troubleshooting
 
-🔮 Geliştirme Fikirleri
+🔮 Development Ideas
 
-⭐ Özellikler
+⭐ Features
 
-✔ Kullanıcı kayıt & giriş
-✔ Not ekleme
-✔ AI ile düzenleme / sadeleştirme / özet
-✔ Özet türü seçimi (kısa / normal / detaylı)
-✔ Geçmiş notları listeleme
-✔ Arama
-✔ Tek tek silme
-✔ Toplu silme
-✔ TXT indir
-✔ PDF indir (Türkçe karakter desteği)
+✔ User registration & login
+✔ Add notes
+✔ AI edit / simplify / summarize
+✔ Choose summary type (short / normal / detailed)
+✔ View past notes
+✔ Search
+✔ Delete individually
+✔ Bulk delete
+✔ Download TXT
+✔ Download PDF (Turkish character support)
 
-⚙ Kurulum
-1️⃣ Projeyi klonla veya indir
+⚙ Setup
+1️⃣ Clone or download the project
 git clone <repo-link>
 cd AI-Notes
 
-2️⃣ Gerekli paketleri yükle
+2️⃣ Install required packages
 pip install -r requirements.txt
 
 
-Eğer yoksa:
+If missing:
 
 pip install flask requests reportlab
 
-🔑 API Anahtarı — OpenRouter
-1️⃣ OpenRouter’dan anahtar oluştur
+🔑 API Key — OpenRouter
+1️⃣ Create an API key on OpenRouter
 
 👉 https://openrouter.ai
 
 Dashboard → API Keys → Create Key
 
-2️⃣ Bilgisayara tanıt
+2️⃣ Add it to your system
+
 🔹 Windows (PowerShell)
-$env:OPENROUTER_API_KEY="BURAYA_ANAHTARI_YAZ"
+
+$env:OPENROUTER_API_KEY="PUT_YOUR_KEY_HERE"
+
 
 🔹 Linux / Mac
-export OPENROUTER_API_KEY="BURAYA_ANAHTARI_YAZ"
+
+export OPENROUTER_API_KEY="PUT_YOUR_KEY_HERE"
 
 
-Kalıcı yapmak için ortam değişkenlerine ekleyebilirsin.
+You can add it to environment variables to make it permanent.
 
-▶️ Uygulamayı Çalıştır
+▶️ Run the App
 python app.py
 
 
-Tarayıcıdan aç:
+Open in your browser:
 
 http://127.0.0.1:5000
 
-✨ Kullanım
+✨ Usage
 
-1️⃣ Giriş yap veya kayıt oluştur
-2️⃣ Notunu yaz
-3️⃣ Özet türünü seç:
+1️⃣ Log in or create an account
+2️⃣ Write your note
+3️⃣ Choose summary type:
 
-kısa
+short
 
 normal
 
-detaylı
+detailed
 
-4️⃣ “Düzenle / Özetle” → Yapay zeka yeniden yazar
-5️⃣ Kaydedilir & geçmiş listene eklenir
+4️⃣ Click “Edit / Summarize” — AI rewrites it
+5️⃣ It is saved & added to your history list
 
-📄 PDF / TXT İndirme
+📄 PDF / TXT Download
 
-Her özet sayfasında:
+On each summary page:
 
-⬇ TXT indir
-📄 PDF indir
+⬇ Download TXT
+📄 Download PDF
 
-Türkçe karakterler için proje şu fontu kullanır:
+For Turkish characters, the project uses this font:
 
 static/fonts/dejavu-sans/DejaVuSans.ttf
 
 
-PDF:
+PDF includes:
 
-✔ başlıklar
-✔ tarih
-✔ metin
-✔ bozulmayan Türkçe karakterler
+✔ titles
+✔ date
+✔ text
+✔ intact Turkish characters
 
-ile oluşturulur.
+🗂 Database Structure
 
-🗂 Veritabanı Yapısı
-
-Dosya:
+File:
 
 notes.db
 
-
-Tablolar:
+Tables
 
 users
-alan	açıklama
-id	kullanıcı id
-username	kullanıcı adı
-password	şifre
-summaries
-alan	açıklama
-id	özet id
-user_id	kullanıcı
-note	orijinal metin
-summary	düzenlenmiş metin
-created_at	tarih
-🛠 Sorun Giderme (ÖNEMLİ)
-❌ “Sunucu hatası: API anahtarı bulunamadı”
 
-→ terminalde anahtar yok
+field	description
+id	user id
+username	username
+password	password
+
+summaries
+
+field	description
+id	summary id
+user_id	user
+note	original text
+summary	edited text
+created_at	date
+🛠 Troubleshooting (IMPORTANT)
+
+❌ “Server error: API key not found”
+
+→ API key not loaded in terminal
+
+Check:
 
 echo $env:OPENROUTER_API_KEY
 
 
-boşsa tekrar ekle.
+If empty, add it again.
 
-❌ PDF’de kare/kutu karakter
+❌ Squares / boxes in PDF
 
-Font doğru yerde olmalı:
+Font must be here:
 
 static/fonts/dejavu-sans/DejaVuSans.ttf
 
 
-ve app.py içinde kayıtlı olmalı.
+and registered inside app.py.
 
 ❌ 404 / Not Found
 
-Route (URL) ve buton eşleşmiyor olabilir.
+Route and button may not match.
 
-Kontrol et:
+Check:
 
 /download
-
 /download_pdf
 
-❌ Bağlantı koptu / API cevap vermiyor
 
-Muhtemel nedenler:
+❌ Connection lost / API not responding
+
+Possible reasons:
 
 internet
 
@@ -175,18 +182,18 @@ VPN
 
 rate limit
 
-API geçici hata
+temporary API issue
 
-Biraz bekle → tekrar dene.
+Wait a bit → try again.
 
-🔮 Geliştirme Fikirleri
+🔮 Development Ideas
 
-🔹 Tema & dark mode
-🔹 CSV / JSON dışa aktar
-🔹 Etiket sistemi (ders / günlük / proje)
-🔹 Kategorilere göre filtreleme
-🔹 AI — “öğretmen gibi anlat” modu
-🔹 Mobil uyumlu arayüz
+🔹 Theme & dark mode
+🔹 Export CSV / JSON
+🔹 Tag system (lesson / diary / project)
+🔹 Filter by category
+🔹 AI “explain like a teacher” mode
+🔹 Mobile-friendly UI
 
 👤 Not
 
